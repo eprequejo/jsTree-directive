@@ -91,6 +91,12 @@ ngJSTree.directive('jsTree', ['$http', function($http) {
         }
       }
     },
+    manageInstance: function (s, e, a) {
+      if (a.treeInstance) {
+        // Using the first way to invoke method on instance
+        s[a.treeInstance] = this.tree.jstree(true);
+      }
+    },
     link: function(s, e, a) { // scope, element, attribute \O/
       $(function() {
         var config = {};
@@ -145,6 +151,7 @@ ngJSTree.directive('jsTree', ['$http', function($http) {
       treeDir.managePlugins(s, e, a, config);
       this.tree = $(e).jstree(config);
       treeDir.manageEvents(s, e, a);
+      treeDir.manageInstance(s, e, a);
     }
   };
 
